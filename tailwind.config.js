@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -17,7 +18,7 @@ export default {
         success: '#22C55E',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['font-sans', 'Inter', 'sans-serif'],
       }
     },
   },

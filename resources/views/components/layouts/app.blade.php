@@ -14,26 +14,33 @@
         <!-- AOS CSS -->
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <style>
-    /* ... (CSS Transisi Halaman yang tadi) ... */
+        <style>
+            /* Animasi Bouncing Card */
+            @keyframes cardBounce {
+                0% { transform: scale(0.3); opacity: 0; }
+                50% { transform: scale(1.05); opacity: 1; }
+                70% { transform: scale(0.95); }
+                100% { transform: scale(1); }
+            }
 
-    /* Animasi Bouncing Card */
-    @keyframes cardBounce {
-        0% { transform: scale(0.3); opacity: 0; }
-        50% { transform: scale(1.05); opacity: 1; } /* Melebihi ukuran normal */
-        70% { transform: scale(0.95); }           /* Sedikit mengkerut */
-        100% { transform: scale(1); }             /* Stabil di ukuran normal */
-    }
+            .card-bounce {
+                animation: cardBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            }
+        </style>
 
-    .card-bounce {
-        animation: cardBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    }
-</style>
+        <!-- Script Pencegah Kedipan Tema -->
+        <script>
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="bg-[#0f172a] text-slate-200 font-['Inter'] antialiased selection:bg-indigo-500 selection:text-white">
+    <body class="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 font-['Inter'] antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300">
         
         <!-- Background Ornaments (Glassmorphism Effect Setup) -->
         <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
@@ -53,6 +60,25 @@
 
         @livewireScripts
         
+        <!-- Alpine Store untuk Dark Mode -->
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('darkMode', {
+                    on: document.documentElement.classList.contains('dark'),
+                    toggle() {
+                        this.on = !this.on;
+                        if (this.on) {
+                            document.documentElement.classList.add('dark');
+                            localStorage.theme = 'dark';
+                        } else {
+                            document.documentElement.classList.remove('dark');
+                            localStorage.theme = 'light';
+                        }
+                    }
+                });
+            });
+        </script>
+
         <!-- AOS JS -->
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>
