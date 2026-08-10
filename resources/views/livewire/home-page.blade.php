@@ -96,7 +96,7 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
+   <!-- Experience Section -->
     <section id="experience" class="py-20 relative z-10">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-4xl">
@@ -120,7 +120,7 @@
                     <div class="flex-grow w-full bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm p-6 rounded-2xl shadow-sm dark:shadow-none hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all ml-12 sm:ml-0">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ $experience->position }}</h3>
                         <div class="text-slate-700 dark:text-slate-300 font-medium mb-4">{{ $experience->company }}</div>
-                        <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-invert max-w-none">
+                        <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-slate dark:prose-invert max-w-none">
                             {!! $experience->description !!}
                         </div>
                     </div>
