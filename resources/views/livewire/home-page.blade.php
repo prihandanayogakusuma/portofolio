@@ -12,15 +12,15 @@
                         IT Infrastructure & Developer
                     </h2>
                     <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
-                        Profesional IT dengan fokus pada pengelolaan infrastruktur jaringan, pemeliharaan server, serta pengembangan sistem otomatisasi untuk meningkatkan efisiensi operasional.
+                        Profesional IT dengan fokus pada pengelolaan infrastruktur jaringan, pemeliharaan server, serta pembangunan sistem web untuk meningkatkan efisiensi operasional.
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                         <a href="#projects" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all shadow-lg shadow-indigo-500/30">
                             Lihat Proyek
                         </a>
-                        <a href="{{ route('cv.download') }}" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
+                        <!-- <a href="{{ route('cv.download') }}" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
                             Download CV
-                        </a>
+                        </a> -->
                         <a href="#contact" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
                             Hubungi Saya
                         </a>

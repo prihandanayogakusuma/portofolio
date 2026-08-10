@@ -35,14 +35,13 @@ class HomePage extends Component
 
         $this->reset(['name', 'email', 'message']);
     }
-
-    public function render()
-    {
-        return view('livewire.home-page', [
-            'projects' => Project::where('is_featured', true)->latest()->take(3)->get(),
-            'skills' => Skill::orderBy('category')->orderBy('proficiency_percentage', 'desc')->get(),
-            'services' => Service::latest()->get(),
-            'experiences' => Experience::orderBy('start_date', 'desc')->get(),
-        ]);
-    }
+ public function render()
+{
+    return view('livewire.home-page', [
+        'projects' => Project::latest()->get(),
+        'skills' => Skill::orderBy('category')->orderBy('proficiency_percentage', 'desc')->get(),
+        'services' => Service::latest()->get(),
+        'experiences' => Experience::orderBy('start_date', 'desc')->get(),
+    ]);
+}
 }
