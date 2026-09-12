@@ -24,9 +24,6 @@
             }
 
             .card-bounce {
-                opacity: 0;
-            }
-            .card-bounce.in-view {
                 animation: cardBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
             }
 
@@ -170,20 +167,5 @@
             });
         </script>
 
-        <!-- Animasi Kartu Saat Masuk Viewport (dijalankan ulang setiap navigasi wire:navigate) -->
-        <script>
-            document.addEventListener('livewire:navigated', () => {
-                const cards = document.querySelectorAll('.card-bounce');
-                const cardObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in-view');
-                            cardObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                cards.forEach((card) => cardObserver.observe(card));
-            });
-        </script>
     </body>
 </html>
