@@ -13,12 +13,12 @@ Route::get('/', HomePage::class)->name('home');
 Route::get('/articles', ArticleIndex::class)->name('articles.index');
 Route::get('/articles/{slug}', ArticleShow::class)->name('articles.show');
 
-Route::get('/download-cv', function () {
+Route::get('/lihat-cv', function () {
     $path = Setting::get('cv_path');
 
     if (! $path || ! Storage::disk('public')->exists($path)) {
         abort(404, 'CV belum diunggah.');
     }
 
-    return Storage::disk('public')->download($path, 'CV-Prihandana-Yoga-Kusuma.pdf');
-})->name('cv.download');
+    return Storage::disk('public')->response($path, 'CV-Prihandana-Yoga-Kusuma.pdf');
+})->name('cv.view');

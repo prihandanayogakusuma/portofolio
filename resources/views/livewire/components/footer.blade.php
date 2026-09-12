@@ -37,7 +37,7 @@
                     <h4 class="text-slate-900 dark:text-white text-sm font-bold uppercase tracking-wider mb-6">Eksplorasi</h4>
                     <ul class="space-y-3">
                         <li><a href="{{ route('articles.index') }}" wire:navigate class="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm">Catatan IT</a></li>
-                        <li><a href="{{ route('cv.download') }}" class="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm">Unduh CV</a></li>
+                        <li><a href="{{ route('cv.view') }}" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm">Lihat CV</a></li>
                         <li><a href="{{ url('/#contact') }}" wire:navigate class="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm">Kontak</a></li>
                     </ul>
                 </div>
