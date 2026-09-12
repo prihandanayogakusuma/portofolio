@@ -52,41 +52,39 @@
 
                     <hr class="border-slate-200 dark:border-slate-700 my-8">
 
-                    <!-- SEKSI RATING ARTIKEL (Interaktif dengan Alpine.js) -->
-                    <div x-data="{ 
-                        rating: 0, 
-                        hoverRating: 0, 
-                        hasVoted: false, 
-                        voteCount: 12, 
-                        average: 5.0,
-                        rate(star) {
-                            if (this.hasVoted) return;
-                            this.rating = star;
-                            this.hasVoted = true;
-                            this.voteCount++;
-                        }
-                    }" class="text-center py-6 bg-slate-50 dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-700/50 mb-8">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Bermanfaatkan Artikel Ini?</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4" x-text="hasVoted ? 'Terima kasih telah memberi rating pada post ini.' : 'Klik bintang untuk rating!'"></p>
-                        
-                        <!-- Ikon Bintang Interaktif -->
-                        <div class="flex justify-center gap-1 mb-3">
-                            <template x-for="star in 5">
-                                <svg @click="rate(star)" 
-                                     @mouseenter="hoverRating = star" 
-                                     @mouseleave="hoverRating = 0"
-                                     class="w-7 h-7 cursor-pointer transition-transform hover:scale-110"
-                                     :class="(hoverRating >= star || rating >= star) ? 'text-amber-400 fill-current' : 'text-slate-300 dark:text-slate-600 fill-current'"
-                                     viewBox="0 0 24 24">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                </svg>
-                            </template>
-                        </div>
-                        
-                        <p class="text-xs text-slate-500 dark:text-slate-400">
-                            Rating rata-rata <span x-text="average"></span> / 5. Vote count: <span x-text="voteCount"></span>
+                    <!-- SEKSI RATING ARTIKEL (Tersimpan ke Database, 1 rating per pengunjung) -->
+                    <div x-data="{ hover: 0 }" class="text-center py-6 bg-slate-50 dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-700/50 mb-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Bermanfaat Artikel Ini?</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            {{ $userRating ? 'Terima kasih telah memberi rating pada artikel ini.' : 'Klik bintang untuk memberi rating!' }}
                         </p>
-                        <p class="text-xs text-indigo-600 dark:text-indigo-400 mt-1 font-medium" x-show="hasVoted">Terima kasih atas penilaian Anda!</p>
+
+                        <!-- Ikon Bintang -->
+                        <div class="flex justify-center gap-1 mb-3">
+                            @for($star = 1; $star <= 5; $star++)
+                                @if($userRating)
+                                    <svg class="w-7 h-7 fill-current {{ $star <= $userRating ? 'text-amber-400' : 'text-slate-300 dark:text-slate-600' }}" viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                @else
+                                    <svg wire:click="rate({{ $star }})"
+                                         @mouseenter="hover = {{ $star }}"
+                                         @mouseleave="hover = 0"
+                                         class="w-7 h-7 cursor-pointer fill-current transition-transform hover:scale-110"
+                                         :class="hover >= {{ $star }} ? 'text-amber-400' : 'text-slate-300 dark:text-slate-600'"
+                                         viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                @endif
+                            @endfor
+                        </div>
+
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            Rating rata-rata {{ number_format($ratingAverage, 1) }} / 5. Vote count: {{ $ratingCount }}
+                        </p>
+                        @if($userRating)
+                        <p class="text-xs text-indigo-600 dark:text-indigo-400 mt-1 font-medium">Terima kasih atas penilaian Anda!</p>
+                        @endif
                     </div>
 
                     <!-- TOMBOL SHARE SOSIAL MEDIA -->
