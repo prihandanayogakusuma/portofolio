@@ -119,6 +119,13 @@
 
         @php
             $skillIcons = ($skills ?? collect())->filter(fn($skill) => $skill->icon)->values();
+            // Gandakan urutan ikon agar satu putaran selalu lebih lebar dari layar (mencegah celah kosong pada layar lebar)
+            $minItems = 20;
+            $repeat = $skillIcons->isEmpty() ? 0 : max(1, (int) ceil($minItems / $skillIcons->count()));
+            $skillSequence = collect();
+            for ($i = 0; $i < $repeat; $i++) {
+                $skillSequence = $skillSequence->concat($skillIcons);
+            }
         @endphp
 
         @if($skillIcons->isEmpty())
@@ -127,8 +134,8 @@
         </div>
         @else
         <div class="marquee-mask overflow-hidden" data-aos="fade-up">
-            <div class="marquee-track flex items-center gap-6 w-max" style="animation-duration: {{ max(15, $skillIcons->count() * 3) }}s;">
-                @foreach($skillIcons->concat($skillIcons) as $skill)
+            <div class="marquee-track flex items-center gap-6 w-max" style="animation-duration: {{ max(20, $skillSequence->count() * 2.5) }}s;">
+                @foreach($skillSequence->concat($skillSequence) as $skill)
                 <div class="spotlight-card shrink-0 w-24 h-24 md:w-28 md:h-28 flex items-center justify-center bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm rounded-2xl shadow-sm dark:shadow-none hover:-translate-y-1 hover:border-indigo-400/50 transition-all duration-300" title="{{ $skill->name }}">
                     <div class="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center text-slate-800 dark:text-white [&>svg]:w-full [&>svg]:h-full">
                         {!! $skill->icon !!}
