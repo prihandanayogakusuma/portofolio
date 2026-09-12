@@ -10,7 +10,7 @@
     <div class="container mx-auto px-6 max-w-7xl">
         <!-- Tautan Kembali -->
         <div class="mb-8">
-            <a href="{{ route('articles.index') }}" class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
+            <a href="{{ route('articles.index') }}" wire:navigate class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
                 &larr; Kembali ke Daftar Artikel
             </a>
         </div>
@@ -119,8 +119,8 @@
                                 I'm a IT Infrastructure & development strong passion for front-end & Backend development. Skilled in website creation and experienced in content writing. I blend technical expertise with creativity to craft engaging and functional web experiences!
                             </p>
                             <div class="flex justify-center sm:justify-start items-center gap-3">
-                                <a href="{{ route('articles.index') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-medium transition-colors shadow-sm">VIEW ALL POSTS</a>
-                                <a href="{{ route('articles.index') }}" class="p-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors" title="Semua Postingan">
+                                <a href="{{ route('articles.index') }}" wire:navigate class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-medium transition-colors shadow-sm">VIEW ALL POSTS</a>
+                                <a href="{{ route('articles.index') }}" wire:navigate class="p-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors" title="Semua Postingan">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                                 </a>
                             </div>
@@ -131,7 +131,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                         <!-- Artikel Sebelumnya -->
                         @if($previousArticle)
-                            <a href="{{ route('articles.show', $previousArticle->slug) }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors group">
+                            <a href="{{ route('articles.show', $previousArticle->slug) }}" wire:navigate class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors group">
                                 <span class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">&larr;</span>
                                 <span class="text-xs font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">{{ $previousArticle->title }}</span>
                             </a>
@@ -141,7 +141,7 @@
 
                         <!-- Artikel Berikutnya -->
                         @if($nextArticle)
-                            <a href="{{ route('articles.show', $nextArticle->slug) }}" class="flex items-center justify-between sm:justify-end gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors group text-right sm:col-start-2">
+                            <a href="{{ route('articles.show', $nextArticle->slug) }}" wire:navigate class="flex items-center justify-between sm:justify-end gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors group text-right sm:col-start-2">
                                 <span class="text-xs font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">{{ $nextArticle->title }}</span>
                                 <span class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">&rarr;</span>
                             </a>
@@ -161,7 +161,7 @@
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 pb-3 border-b border-slate-200 dark:border-slate-700">Artikel Terbaru</h3>
                     <div class="space-y-4">
                         @forelse($latestArticles as $latest)
-                            <a href="{{ route('articles.show', $latest->slug) }}" class="block text-sm text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors pb-3 border-b border-slate-100 dark:border-slate-800 last:border-0 last:pb-0">
+                            <a href="{{ route('articles.show', $latest->slug) }}" wire:navigate class="block text-sm text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors pb-3 border-b border-slate-100 dark:border-slate-800 last:border-0 last:pb-0">
                                 {{ $latest->title }}
                             </a>
                         @empty

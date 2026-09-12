@@ -36,7 +36,7 @@
         <!-- Grid Daftar Artikel -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @forelse($articles as $article)
-            <div class="card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:border-indigo-500/50 transition-all group" style="animation-delay: {{ $loop->index * 0.1 }}s;">
+            <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:-translate-y-2 hover:border-indigo-500/50 transition-all group" style="animation-delay: {{ $loop->index * 0.1 }}s;">
                 @if($article->thumbnail)
                     <div class="aspect-video overflow-hidden bg-slate-200 dark:bg-slate-900">
                         <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -56,7 +56,7 @@
                         <p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-3">{{ $article->excerpt }}</p>
                     </div>
                     <div class="mt-6">
-                        <a href="{{ route('articles.show', $article->slug) }}" class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
+                        <a href="{{ route('articles.show', $article->slug) }}" wire:navigate class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
                             Baca Selengkapnya &rarr;
                         </a>
                     </div>

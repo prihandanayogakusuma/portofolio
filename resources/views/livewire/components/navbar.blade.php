@@ -1,22 +1,22 @@
-<nav x-data="{ open: false }" class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-[#0f172a]/70 border-b border-slate-800">
+<nav x-data="{ open: false, scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 20)" class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-white/70 dark:bg-[#0f172a]/70 border-b"
+     :class="scrolled ? 'border-slate-200 dark:border-slate-800 shadow-sm' : 'border-transparent'">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
+        <div class="flex justify-between items-center transition-all duration-300" :class="scrolled ? 'h-16' : 'h-20'">
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center">
-                <a href="{{ url('/') }}" class="text-2xl font-bold text-white tracking-tighter">
+                <a href="{{ url('/') }}" wire:navigate class="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter">
                     Kus<span class="text-indigo-500">ByteVibe</span>
                 </a>
             </div>
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="{{ url('/#hero') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Tentang</a>
-                <a href="{{ url('/#skills') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Keahlian</a>
-                <a href="{{ url('/#services') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Layanan</a>
-                <a href="{{ url('/#projects') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Proyek</a>
-                <a href="{{ url('/#experience') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Pengalaman</a>
-                <a href="{{ route('articles.index') }}" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Artikel</a>
-                <a href="{{ url('/#contact') }}" class="px-5 py-2 rounded-full bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition-all text-sm font-medium">
+                <a href="{{ url('/#hero') }}" wire:navigate class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">Tentang</a>
+                <a href="{{ url('/#skills') }}" wire:navigate class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">Keahlian</a>
+                <a href="{{ url('/#services') }}" wire:navigate class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">Layanan</a>
+                <a href="{{ url('/#projects') }}" wire:navigate class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">Proyek</a>
+                <a href="{{ route('articles.index') }}" wire:navigate class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">Artikel</a>
+                <a href="{{ url('/#contact') }}" wire:navigate class="px-5 py-2 rounded-full bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition-all text-sm font-medium">
                     Hubungi Saya
                 </a>
             </div>
@@ -25,7 +25,7 @@
             <div class="flex items-center gap-3">
                 <!-- Tombol Toggle Dark/Light Mode -->
                 <div class="flex items-center">
-                    <button @click="$store.darkMode.toggle()" class="p-2 rounded-full text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer" aria-label="Toggle Theme">
+                    <button @click="$store.darkMode.toggle()" class="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer" aria-label="Toggle Theme">
                         <!-- Ikon Bulan (Dark Mode) -->
                         <svg x-show="!$store.darkMode.on" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                         <!-- Ikon Matahari (Light Mode) -->
@@ -35,9 +35,9 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button type="button" 
-                            @click="open = !open" 
-                            class="text-slate-300 hover:text-white focus:outline-none p-2 relative z-50 cursor-pointer w-10 h-10 flex items-center justify-center"
+                    <button type="button"
+                            @click="open = !open"
+                            class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white focus:outline-none p-2 relative z-50 cursor-pointer w-10 h-10 flex items-center justify-center"
                             aria-label="Toggle Menu">
                         <!-- Ikon Hamburger (Garis 3) -->
                         <svg class="h-6 w-6 transition-all duration-300 absolute" 
@@ -70,8 +70,9 @@
     </div>
 
     <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" 
-         class="md:hidden absolute top-20 left-0 w-full bg-[#0f172a]/95 backdrop-blur-xl border-b border-slate-800 px-6 py-6 space-y-3 shadow-2xl z-40 overflow-hidden"
+    <div id="mobile-menu"
+         class="md:hidden absolute left-0 w-full bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 py-6 space-y-3 shadow-2xl z-40 overflow-hidden transition-all duration-300"
+         :class="scrolled ? 'top-16' : 'top-20'"
          x-show="open"
          x-transition:enter="transition-all duration-500 ease-out"
          x-transition:enter-start="max-h-0 opacity-0 -translate-y-5"
@@ -80,15 +81,14 @@
          x-transition:leave-start="max-h-[500px] opacity-100 translate-y-0"
          x-transition:leave-end="max-h-0 opacity-0 -translate-y-5"
          @click.outside="open = false">
-         
-        <a href="{{ url('/#hero') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Tentang</a>
-        <a href="{{ url('/#skills') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Keahlian</a>
-        <a href="{{ url('/#services') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Layanan</a>
-        <a href="{{ url('/#projects') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Proyek</a>
-        <a href="{{ url('/#experience') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Pengalaman</a>
-        <a href="{{ route('articles.index') }}" @click="open = false" class="block text-slate-300 hover:text-indigo-400 hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Artikel</a>
+
+        <a href="{{ url('/#hero') }}" wire:navigate @click="open = false" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Tentang</a>
+        <a href="{{ url('/#skills') }}" wire:navigate @click="open = false" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Keahlian</a>
+        <a href="{{ url('/#services') }}" wire:navigate @click="open = false" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Layanan</a>
+        <a href="{{ url('/#projects') }}" wire:navigate @click="open = false" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Proyek</a>
+        <a href="{{ route('articles.index') }}" wire:navigate @click="open = false" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 text-base font-medium">Artikel</a>
         <div class="pt-2">
-            <a href="{{ url('/#contact') }}" @click="open = false" class="block text-center px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-300 text-sm font-medium shadow-lg shadow-indigo-500/30">
+            <a href="{{ url('/#contact') }}" wire:navigate @click="open = false" class="block text-center px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-300 text-sm font-medium shadow-lg shadow-indigo-500/30">
                 Hubungi Saya
             </a>
         </div>

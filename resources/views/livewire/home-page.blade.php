@@ -5,24 +5,54 @@
             <div class="flex flex-col-reverse lg:flex-row items-center gap-12">
                 <!-- Kolom Teks -->
                 <div class="lg:w-1/2 flex flex-col justify-center text-center lg:text-left" data-aos="fade-right">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
+                    <div class="inline-flex self-center lg:self-start items-center gap-2 px-4 py-1.5 mb-6 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Tersedia untuk Kolaborasi & Proyek Baru
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         Halo, Saya <span class="text-indigo-600 dark:text-indigo-500">Prihandana Yoga Kusuma</span>
                     </h1>
-                    <h2 class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6">
-                        IT Infrastructure & Developer
+                    <h2 class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 min-h-[2em]"
+                        x-data="{
+                            roles: ['IT Infrastructure & Developer', 'Network & Server Specialist', 'Web Application Developer'],
+                            roleIndex: 0,
+                            text: '',
+                            isDeleting: false,
+                            type() {
+                                const current = this.roles[this.roleIndex];
+                                if (!this.isDeleting) {
+                                    this.text = current.substring(0, this.text.length + 1);
+                                    if (this.text === current) {
+                                        this.isDeleting = true;
+                                        setTimeout(() => this.type(), 2000);
+                                        return;
+                                    }
+                                } else {
+                                    this.text = current.substring(0, this.text.length - 1);
+                                    if (this.text === '') {
+                                        this.isDeleting = false;
+                                        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+                                    }
+                                }
+                                setTimeout(() => this.type(), this.isDeleting ? 30 : 70);
+                            }
+                        }"
+                        x-init="type()">
+                        <span x-text="text"></span><span class="typing-caret inline-block w-0.5 h-5 md:h-6 bg-indigo-500 ml-0.5 align-middle"></span>
                     </h2>
                     <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
                         Profesional IT dengan fokus pada pengelolaan infrastruktur jaringan, pemeliharaan server, serta pembangunan sistem web untuk meningkatkan efisiensi operasional.
                     </p>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="#projects" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all shadow-lg shadow-indigo-500/30">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="#projects" class="btn-shine px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all shadow-lg shadow-indigo-500/30 hover:-translate-y-0.5">
                             Lihat Proyek
                         </a>
-                        <!-- <a href="{{ route('cv.download') }}" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
-                            Download CV
-                        </a> -->
-                        <a href="#contact" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
+                        <a href="#contact" class="px-8 py-3 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white rounded-full font-medium transition-all">
                             Hubungi Saya
+                        </a>
+                        <a href="{{ route('cv.download') }}" class="inline-flex items-center gap-2 px-2 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+                            Download CV
                         </a>
                     </div>
                 </div>
@@ -34,8 +64,8 @@
                     50% { transform: translateY(-10px); }
                 }
                 .floating-container { animation: floatAnimation 3s ease-in-out infinite; }
-                .bounce-spin-img { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-                .bounce-spin-img:hover { transform: scale(1.1) rotate(360deg); }
+                .bounce-spin-img { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+                .bounce-spin-img:hover { transform: scale(1.05); }
                 @keyframes cardBounce {
                     0% { transform: scale(0.3); opacity: 0; }
                     50% { transform: scale(1.05); opacity: 1; }
@@ -43,12 +73,31 @@
                     100% { transform: scale(1); opacity: 1; }
                 }
                 .card-bounce { animation: cardBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+
+                /* Carousel Keahlian (auto-scroll) */
+                @keyframes marqueeScroll {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                }
+                .marquee-track {
+                    animation: marqueeScroll linear infinite;
+                    will-change: transform;
+                }
+                .marquee-track:hover { animation-play-state: paused; }
+                .marquee-mask {
+                    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+                    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .marquee-track { animation: none; }
+                }
                 </style>
 
                 <div class="lg:w-1/2 flex justify-center" data-aos="fade-left">
                     <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 floating-container">
                         <div class="absolute inset-0 bg-indigo-500 rounded-full blur-3xl opacity-20"></div>
-                        <img src="{{ asset('images/prihandana.png') }}" alt="Foto Profil" class="bounce-spin-img relative w-full h-full object-cover rounded-full border-4 border-slate-300 dark:border-slate-700 shadow-2xl cursor-pointer">
+                        <div class="spin-ring absolute -inset-2 rounded-full" style="background: conic-gradient(from 0deg, #6366f1, #a855f7, #6366f1);"></div>
+                        <img src="{{ asset('images/prihandana.png') }}" alt="Foto Profil" class="bounce-spin-img relative w-full h-full object-cover rounded-full border-4 border-white dark:border-[#0f172a] shadow-2xl cursor-pointer">
                     </div>
                 </div>
             </div>
@@ -60,43 +109,38 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-7xl">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Keahlian & Kemampuan</h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Kemampuan Teknis
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Keahlian & Kemampuan</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse($skills ?? [] as $skill)
-                <div class="card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm p-6 rounded-2xl shadow-sm dark:shadow-none hover:-translate-y-1 transition-all duration-300" style="animation-delay: {{ $loop->index * 0.1 }}s;">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center gap-3">
-                            @if($skill->icon)
-                            <div class="w-8 h-8 flex items-center justify-center text-slate-800 dark:text-white">
-                                {!! $skill->icon !!}
-                            </div>
-                            @endif
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ $skill->name }}</h3>
-                        </div>
-                        <span class="text-indigo-600 dark:text-indigo-400 font-medium">{{ $skill->proficiency_percentage }}%</span>
+        </div>
+
+        @php
+            $skillIcons = ($skills ?? collect())->filter(fn($skill) => $skill->icon)->values();
+        @endphp
+
+        @if($skillIcons->isEmpty())
+        <div class="container mx-auto px-6 max-w-7xl text-center text-slate-500 py-8">
+            Data keahlian belum tersedia.
+        </div>
+        @else
+        <div class="marquee-mask overflow-hidden" data-aos="fade-up">
+            <div class="marquee-track flex items-center gap-6 w-max" style="animation-duration: {{ max(15, $skillIcons->count() * 3) }}s;">
+                @foreach($skillIcons->concat($skillIcons) as $skill)
+                <div class="spotlight-card shrink-0 w-24 h-24 md:w-28 md:h-28 flex items-center justify-center bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm rounded-2xl shadow-sm dark:shadow-none hover:-translate-y-1 hover:border-indigo-400/50 transition-all duration-300" title="{{ $skill->name }}">
+                    <div class="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center text-slate-800 dark:text-white [&>svg]:w-full [&>svg]:h-full">
+                        {!! $skill->icon !!}
                     </div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
-                        <div class="bg-indigo-600 dark:bg-indigo-500 h-2.5 rounded-full transition-all duration-1000" style="width: {{ $skill->proficiency_percentage }}%"></div>
-                    </div>
-                    @if($skill->category)
-                    <div class="mt-3 inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 rounded-full">
-                        {{ $skill->category }}
-                    </div>
-                    @endif
                 </div>
-                @empty
-                <div class="col-span-full text-center text-slate-500 py-8">
-                    Data keahlian belum tersedia.
-                </div>
-                @endforelse
+                @endforeach
             </div>
         </div>
+        @endif
     </section>
 
-   <!-- Experience Section -->
+   {{-- Experience Section (disembunyikan sementara atas permintaan)
     <section id="experience" class="py-20 relative z-10">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-4xl">
@@ -109,7 +153,7 @@
                 @forelse($experiences ?? [] as $experience)
                 <div class="card-bounce relative flex flex-col sm:flex-row items-start gap-6 sm:gap-10 group" style="animation-delay: {{ $loop->index * 0.15 }}s;">
                     <div class="sm:w-32 pt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 shrink-0 pl-14 sm:pl-0 sm:text-right">
-                        {{ \Carbon\Carbon::parse($experience->start_date)->format('M Y') }} - 
+                        {{ \Carbon\Carbon::parse($experience->start_date)->format('M Y') }} -
                         @if($experience->is_current)
                             Sekarang
                         @else
@@ -133,19 +177,22 @@
             </div>
         </div>
     </section>
+    --}}
 
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-slate-100/50 dark:bg-slate-800/20 relative z-10">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-7xl">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Proyek Unggulan</h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Portofolio
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Proyek Unggulan</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($projects ?? [] as $project)
-                <div class="card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:-translate-y-2 transition-transform duration-300 group" style="animation-delay: {{ $loop->index * 0.15 }}s;">
+                <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:-translate-y-2 hover:border-indigo-400/50 transition-all duration-300 group" style="animation-delay: {{ $loop->index * 0.15 }}s;">
                     <div class="aspect-video bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
                         @if($project->image)
                             <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -188,16 +235,18 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-7xl">
             <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Blog & Insight
+                </span>
                 <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Artikel & <span class="text-indigo-600 dark:text-indigo-500">Catatan IT</span></h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full mb-4"></div>
-                <a href="{{ route('articles.index') }}" class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
+                <a href="{{ route('articles.index') }}" wire:navigate class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
                     Lihat Semua Artikel &rarr;
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach($latestArticles as $article)
-                <div class="card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:border-indigo-500/50 transition-all group" style="animation-delay: {{ $loop->index * 0.15 }}s;">
+                <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:-translate-y-2 hover:border-indigo-500/50 transition-all group" style="animation-delay: {{ $loop->index * 0.15 }}s;">
                     @if($article->thumbnail)
                         <div class="aspect-video overflow-hidden bg-slate-200 dark:bg-slate-900">
                             <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -212,7 +261,7 @@
                             <p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-3">{{ $article->excerpt }}</p>
                         </div>
                         <div class="mt-6">
-                            <a href="{{ route('articles.show', $article->slug) }}" class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
+                            <a href="{{ route('articles.show', $article->slug) }}" wire:navigate class="inline-flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
                                 Baca Selengkapnya &rarr;
                             </a>
                         </div>
@@ -229,13 +278,15 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-7xl">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Layanan</h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Apa yang Saya Tawarkan
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Layanan</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($services ?? [] as $service)
-                <div class="card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm p-8 rounded-2xl shadow-sm dark:shadow-none hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between" style="animation-delay: {{ $loop->index * 0.15 }}s;">
+                <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 backdrop-blur-sm p-8 rounded-2xl shadow-sm dark:shadow-none hover:-translate-y-2 hover:border-indigo-400/50 transition-all duration-300 group flex flex-col justify-between" style="animation-delay: {{ $loop->index * 0.15 }}s;">
                     <div>
                         @if($service->icon)
                         <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-600/20 border border-indigo-200 dark:border-indigo-500/30 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 [&>svg]:w-7 [&>svg]:h-7 overflow-hidden">
@@ -262,14 +313,16 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
         <div class="container mx-auto px-6 max-w-7xl">
             <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Mari Terhubung
+                </span>
                 <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Hubungi <span class="text-indigo-600 dark:text-indigo-500">Saya</span></h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
-                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Mari berdiskusi tentang infrastruktur IT, pengembangan sistem, atau peluang kerja sama.</p>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Mari berdiskusi tentang infrastruktur IT, pengembangan sistem, atau peluang kerja sama.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <!-- Kartu Informasi Kontak & Sosial Media -->
-                <div class="card-bounce bg-white dark:bg-slate-800/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between" style="animation-delay: 0.1s;">
+                <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:border-indigo-400/50 transition-all" style="animation-delay: 0.1s;">
                     <div>
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Informasi Kontak</h3>
                         <div class="space-y-6 mb-8">
@@ -281,7 +334,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-slate-500 dark:text-slate-400">Email</p>
-                                    <p class="font-medium text-slate-900 dark:text-white">prihandana99@gmail.com</p>
+                                    <a href="mailto:prihandana99@gmail.com" class="font-medium text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">prihandana99@gmail.com</a>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
@@ -292,7 +345,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-slate-500 dark:text-slate-400">WhatsApp</p>
-                                    <p class="font-medium text-slate-900 dark:text-white">+62 5886666212</p>
+                                    <a href="https://wa.me/085886666212" target="_blank" class="font-medium text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">+62 5886666212</a>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +390,7 @@
                 </div>
 
                 <!-- Form Kontak -->
-                <div class="card-bounce bg-white dark:bg-slate-800/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-none backdrop-blur-sm">
+                <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-none backdrop-blur-sm hover:border-indigo-400/50 transition-all">
                     @if (session()->has('success'))
                         <div class="mb-6 p-4 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-lg text-sm">
                             {{ session('success') }}
@@ -360,7 +413,7 @@
                             <textarea rows="4" wire:model="message" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="Tulis pesan Anda di sini..."></textarea>
                             @error('message') <span class="text-red-400 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
-                        <button type="submit" wire:loading.attr="disabled" class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-lg shadow-indigo-500/30 flex items-center justify-center">
+                        <button type="submit" wire:loading.attr="disabled" class="btn-shine w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-lg shadow-indigo-500/30 flex items-center justify-center">
                             <span wire:loading.remove>Kirim Pesan</span>
                             <span wire:loading>Mengirim...</span>
                         </button>
