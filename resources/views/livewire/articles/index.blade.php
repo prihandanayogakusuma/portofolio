@@ -39,7 +39,7 @@
             <div class="spotlight-card card-bounce bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm flex flex-col justify-between hover:-translate-y-2 hover:border-indigo-500/50 transition-all group" style="animation-delay: {{ $loop->index * 0.1 }}s;">
                 @if($article->thumbnail)
                     <div class="aspect-video overflow-hidden bg-slate-200 dark:bg-slate-900">
-                        <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ Storage::disk(config('filesystems.media'))->url($article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                 @else
                     <div class="w-full h-48 bg-slate-200 dark:bg-slate-900/60 flex items-center justify-center text-slate-500">No Image</div>

@@ -15,10 +15,11 @@ Route::get('/articles/{slug}', ArticleShow::class)->name('articles.show');
 
 Route::get('/lihat-cv', function () {
     $path = Setting::get('cv_path');
+    $disk = Storage::disk(config('filesystems.media'));
 
-    if (! $path || ! Storage::disk('public')->exists($path)) {
+    if (! $path || ! $disk->exists($path)) {
         abort(404, 'CV belum diunggah.');
     }
 
-    return Storage::disk('public')->response($path, 'CV-Prihandana-Yoga-Kusuma.pdf');
+    return $disk->response($path, 'CV-Prihandana-Yoga-Kusuma.pdf');
 })->name('cv.view');

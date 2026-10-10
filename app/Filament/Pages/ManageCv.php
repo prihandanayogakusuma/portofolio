@@ -39,7 +39,7 @@ class ManageCv extends Page implements HasForms
             ->schema([
                 FileUpload::make('cv_path')
                     ->label('File CV (PDF)')
-                    ->disk('public')
+                    ->disk(config('filesystems.media'))
                     ->directory('cv')
                     ->acceptedFileTypes(['application/pdf'])
                     ->downloadable()

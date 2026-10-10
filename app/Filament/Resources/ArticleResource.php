@@ -33,6 +33,7 @@ class ArticleResource extends Resource
                     ->unique(Article::class, 'slug', ignoreRecord: true),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->image()
+                    ->disk(config('filesystems.media'))
                     ->directory('articles')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('excerpt')

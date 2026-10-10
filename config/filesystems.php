@@ -17,6 +17,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Disk untuk File Upload (gambar proyek, thumbnail artikel, CV)
+    |--------------------------------------------------------------------------
+    |
+    | Lokal (XAMPP): biarkan default "public" (disk lokal biasa).
+    | Production/Vercel: set MEDIA_DISK=supabase di environment variable,
+    | karena Vercel tidak punya disk permanen untuk menyimpan file upload.
+    |
+    */
+
+    'media' => env('MEDIA_DISK', 'public'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
@@ -40,6 +53,22 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        // Dipakai saat FILESYSTEM_DISK=supabase (produksi/Vercel) - disk ini tetap
+        // dinamakan agar jelas sumbernya, bukan menimpa 'public' supaya lokal (XAMPP)
+        // tetap bisa pakai disk lokal biasa tanpa perlu internet.
+        'supabase' => [
+            'driver' => 's3',
+            'key' => env('SUPABASE_STORAGE_KEY'),
+            'secret' => env('SUPABASE_STORAGE_SECRET'),
+            'region' => env('SUPABASE_STORAGE_REGION', 'ap-northeast-2'),
+            'bucket' => env('SUPABASE_STORAGE_BUCKET', 'public'),
+            'url' => env('SUPABASE_STORAGE_URL'),
+            'endpoint' => env('SUPABASE_STORAGE_ENDPOINT'),
+            'use_path_style_endpoint' => true,
             'visibility' => 'public',
             'throw' => false,
         ],

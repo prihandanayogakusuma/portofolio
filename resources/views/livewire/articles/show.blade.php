@@ -41,7 +41,7 @@
                     <!-- Thumbnail Artikel -->
                     @if($article->thumbnail)
                         <div class="mb-8 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700/50 bg-slate-100 dark:bg-slate-900">
-                            <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-auto object-cover max-h-[450px]">
+                            <img src="{{ Storage::disk(config('filesystems.media'))->url($article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-auto object-cover max-h-[450px]">
                         </div>
                     @endif
 

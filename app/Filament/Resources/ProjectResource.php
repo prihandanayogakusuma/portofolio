@@ -28,6 +28,7 @@ class ProjectResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
                     ->image()
+                    ->disk(config('filesystems.media'))
                     ->directory('projects')
                     ->nullable(),
                 Forms\Components\TextInput::make('url')
