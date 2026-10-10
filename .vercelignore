@@ -15,4 +15,5 @@ bootstrap/cache/*
 !bootstrap/cache/.gitignore
 public/build
 public/storage
+public/hot
 .vercel
